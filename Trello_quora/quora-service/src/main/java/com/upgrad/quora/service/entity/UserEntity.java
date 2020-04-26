@@ -9,6 +9,13 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="users", schema ="quora")
+@NamedQueries(
+        {
+                @NamedQuery(name = "userByUuid", query = "select u from UserEntity u where u.uuid = :uuid"),
+                @NamedQuery(name = "userByEmail", query = "select u from UserEntity u where u.email =:email"),
+                @NamedQuery(name = "userByUsername", query = "select u from UserEntity u where u.username =:username")
+        }
+)
 public class UserEntity implements Serializable {
     @Id
     @Column(name = "ID")
@@ -47,7 +54,7 @@ public class UserEntity implements Serializable {
     @Column(name = "SALT")
     @NotNull
     @Size(max = 200)
-    //@ToStringExclude
+    @ToStringExclude
     private String salt;
 
     @Column(name = "COUNTRY")
