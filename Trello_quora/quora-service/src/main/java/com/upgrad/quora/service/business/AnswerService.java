@@ -6,11 +6,9 @@ import com.upgrad.quora.service.Dao.UserDao;
 import com.upgrad.quora.service.entity.AnswerEntity;
 import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.entity.UserAuthTokenEntity;
-import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AnswerNotFoundException;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.InvalidQuestionException;
-import com.upgrad.quora.service.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,7 +30,7 @@ public class AnswerService {
             throw new AuthorizationFailedException("ATHR-001","User has not signed in");
         }
         if(userAuthTokenEntity.getLogoutAt() == null || userAuthTokenEntity.getLoginAt().isAfter(userAuthTokenEntity.getLogoutAt())){
-            QuestionEntity questionEntity = questionDao.getQuestionByUuid(questionId);
+            QuestionEntity questionEntity = questionDao.questionByUuid(questionId);
             if(questionEntity == null){
                 throw new InvalidQuestionException("QUES-001","The question entered is invalid");
             }

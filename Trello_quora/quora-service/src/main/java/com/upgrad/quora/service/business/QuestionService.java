@@ -5,6 +5,7 @@ import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
+import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.SignUpRestrictedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,12 @@ import java.time.ZonedDateTime;
 @Service
 public class QuestionService {
     @Autowired
-    private QuestionDoa questionDao;
+    private QuestionDao questionDao;
 
     @Transactional(propagation = Propagation.REQUIRED)
     public QuestionEntity postQuestion(QuestionEntity questionEntity) throws AuthorizationFailedException {
         return questionDao.createQuestion(questionEntity);
     }
+
+
 }
