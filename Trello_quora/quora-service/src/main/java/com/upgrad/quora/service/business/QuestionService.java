@@ -1,6 +1,6 @@
 package com.upgrad.quora.service.business;
 
-import com.upgrad.quora.service.Dao.UserDao;
+import com.upgrad.quora.service.Dao.QuestionDoa;
 import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.entity.QuestionEntity;
@@ -16,10 +16,10 @@ import java.time.ZonedDateTime;
 @Service
 public class QuestionService {
     @Autowired
-    private UserDao userDao;
+    private QuestionDoa questionDoa;
 
     @Transactional(propagation = Propagation.REQUIRED)
     public QuestionEntity postQuestion(QuestionEntity questionEntity) throws AuthorizationFailedException {
-
+        return questionDoa.createQuestion(questionEntity);
     }
 }
