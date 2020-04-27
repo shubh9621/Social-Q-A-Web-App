@@ -41,16 +41,6 @@ public class QuestionDao {
         }
     }
 
-    public QuestionEntity questionByUserId(final int user_id) {
-        QuestionEntity questionEntity;
-        try {
-            questionEntity = entityManager.createNamedQuery("questionByUserId" , QuestionEntity.class).setParameter("user_id" , user_id).getSingleResult();
-        }
-        catch(NoResultException nre) {
-            questionEntity = null;
-        }
-    }
-
     public QuestionEntity questionByAnswerId(final int id) {
         QuestionEntity questionEntity;
         try {
