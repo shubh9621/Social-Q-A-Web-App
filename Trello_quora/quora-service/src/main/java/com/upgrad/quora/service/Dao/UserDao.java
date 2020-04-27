@@ -1,11 +1,14 @@
 package com.upgrad.quora.service.Dao;
 
+import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Repository;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 @Repository
@@ -19,11 +22,28 @@ public class UserDao {
     }
 
     public UserEntity userByUsername(final String username){
-        return entityManager.createNamedQuery("userByUsername", UserEntity.class).setParameter("username", username).getSingleResult();
+        UserEntity userEntity;
+        try{
+            userEntity = entityManager.createNamedQuery("userByUsername", UserEntity.class).setParameter("username", username).getSingleResult();
+        }catch(NoResultException nre){
+            userEntity = null;
+        }
+        return userEntity;
     }
 
     public UserEntity userByEmail(final String email){
-        return entityManager.createNamedQuery("userByEmail", UserEntity.class).setParameter("email", email).getSingleResult();
+        UserEntity userEntity;
+        try{
+            userEntity = entityManager.createNamedQuery("userByEmail", UserEntity.class).setParameter("email", email).getSingleResult();
+        }catch(NoResultException nre){
+            userEntity = null;
+        }
+        return userEntity;
+    }
+
+    public UserAuthTokenEntity createAuthToken(final UserAuthTokenEntity userAuthTokenEntity){
+        entityManager.persist(userAuthTokenEntity);
+        return userAuthTokenEntity;
     }
 
 }
