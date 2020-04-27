@@ -36,7 +36,7 @@ import java.util.UUID;
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
-
+    //CREATE QUESTION
     @RequestMapping(method = RequestMethod.POST, path = "/question/create", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<QuestionResponse> postQuestion( final QuestionRequest questionRequest ) throws AuthorizationFailedException {
         final QuestionEntity questionEntity = new QuestionEntity();
@@ -49,5 +49,11 @@ public class QuestionController {
         QuestionResponse questionResponse = new QuestionResponse().id(createdQuestionEntity.getUuid()).status("QUESTION CREATED");
         return new ResponseEntity<QuestionResponse>(questionResponse, HttpStatus.CREATED);
     }
-
+    //GET ALL THE QUESTIONS
+    @RequestMapping(method = RequestMethod.GET, path="/question/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<QuestionResponse> getAllQuestion(QuestionDetailsResponse questionDetailsResponse) {
+        final QuestionEntity questionEntity = new QuestionEntity();
+        QuestionResponse questionsResponse = new QuestionResponse().id(questionEntity.getUuid()).content(questionEntity.getContent());
+        return new ResponseEntity<QuestionResponse>(questionsResponse , HttpStatus.OK);
+    }
 }
