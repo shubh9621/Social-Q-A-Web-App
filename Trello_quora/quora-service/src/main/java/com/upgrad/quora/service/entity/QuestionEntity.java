@@ -5,11 +5,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.upgrad.quora.service.UserEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name="QUESTION", schema = "public")
@@ -21,7 +21,7 @@ import java.io.Serializable;
         }
 )
 
-public class UserEntity implements Serializable {
+public class QuestionEntity implements Serializable {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +38,10 @@ public class UserEntity implements Serializable {
     @Column(name = "DATE")
     @NotNull
     private ZonedDateTime date;
+
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private UserEntity userId;
 
     public Integer getId() {
         return id;
@@ -71,16 +75,12 @@ public class UserEntity implements Serializable {
         this.date = date;
     }
 
-    public com.upgrad.quora.service.entity.UserEntity getUserId() {
+    public UserEntity getUserId() {
         return userId;
     }
 
-    public void setUserId(com.upgrad.quora.service.entity.UserEntity userId) {
+    public void setUserId(UserEntity userId) {
         this.userId = userId;
     }
-
-    @OneToMany
-    @JoinColumn(name = "USER_ID")
-    private UserEntity userId;
 
 }

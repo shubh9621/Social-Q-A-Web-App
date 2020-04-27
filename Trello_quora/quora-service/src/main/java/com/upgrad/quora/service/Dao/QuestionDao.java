@@ -29,6 +29,7 @@ public class QuestionDao {
         catch(NoResultException nre) {
             questionEntity = null;
         }
+        return questionEntity;
     }
 
     public QuestionEntity questionByUserId(final int user_id) {
@@ -39,6 +40,7 @@ public class QuestionDao {
         catch(NoResultException nre) {
             questionEntity = null;
         }
+        return questionEntity;
     }
 
     public QuestionEntity questionByAnswerId(final int id) {
@@ -49,6 +51,7 @@ public class QuestionDao {
         catch(NoResultException nre) {
             questionEntity = null;
         }
+        return questionEntity;
     }
 
 }
