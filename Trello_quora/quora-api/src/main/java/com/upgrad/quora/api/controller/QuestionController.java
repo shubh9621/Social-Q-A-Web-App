@@ -51,7 +51,7 @@ public class QuestionController {
     }
     //GET ALL THE QUESTIONS
     @RequestMapping(method = RequestMethod.GET, path="/question/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<QuestionResponse> getAllQuestion(QuestionDetailsResponse questionDetailsResponse) {
+    public ResponseEntity<QuestionResponse> getAllQuestion(QuestionDetailsResponse questionDetailsResponse) throws AuthorizationFailedException {
         final QuestionEntity questionEntity = new QuestionEntity();
         QuestionResponse questionsResponse = new QuestionResponse().id(questionEntity.getUuid()).content(questionEntity.getContent());
         return new ResponseEntity<QuestionResponse>(questionsResponse , HttpStatus.OK);
